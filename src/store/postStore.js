@@ -39,16 +39,8 @@ const usePostStore = defineStore({
       this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
     },
     deletePost(id) {
-      const postIndex = this.allPosts.findIndex((post) => post.id === id);
-      if (postIndex !== -1) {
-        this.allPosts.splice(postIndex, 1);
-      }
-
-      const filteredPostIndex = this.filteredPosts.findIndex((post) => post.id === id);
-      if (filteredPostIndex !== -1) {
-        this.filteredPosts.splice(filteredPostIndex, 1);
-      }
-
+      this.allPosts = this.allPosts.filter((post) => post.id !== id);
+      this.filteredPosts = this.filteredPosts.filter((post) => post.id !== id);
       this.loadPosts(this.searchState.sort, this.searchState.filter, this.searchState.search);
     },
     nextPage() {

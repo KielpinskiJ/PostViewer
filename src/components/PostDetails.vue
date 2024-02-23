@@ -30,7 +30,7 @@ export default {
 
     const deletePost = async (id) => {
       await apiService.deletePost(id);
-      postStore.posts = postStore.posts.filter((p) => p.id !== id);
+      postStore.deletePost(id);
       closePost();
     };
 
