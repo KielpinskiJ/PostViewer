@@ -9,14 +9,17 @@ const apiClient = axios.create({
 });
 
 export default {
-  getPosts(page = 1) {
-    return apiClient.get(`/posts?_page=${page}&_limit=10`);
+  getAllPosts() {
+    return apiClient.get('/posts');
   },
   getPost(id) {
     return apiClient.get(`/posts/${id}`);
   },
   getCommentsByPostId(id) {
     return apiClient.get(`/posts/${id}/comments`);
+  },
+  getAllUsers() {
+    return apiClient.get('/users');
   },
   getUser(id) {
     return apiClient.get(`/users/${id}`);

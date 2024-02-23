@@ -7,12 +7,12 @@ const useUserStore = defineStore({
     users: [],
   }),
   actions: {
-    async getUser(id) {
-      if (!this.users[id]) {
-        const response = await apiService.getUser(id);
-        this.users[id] = response.data;
-      }
-      return this.users[id];
+    async loadAllUsers() {
+      const response = await apiService.getAllUsers();
+      this.users = response.data;
+    },
+    getUser(id) {
+      return this.users.find((user) => user.id === id);
     },
   },
 });
