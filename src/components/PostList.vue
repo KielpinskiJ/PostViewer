@@ -5,7 +5,7 @@
       <p>{{ post.body.substring(0, 100) }}...</p>
       <p>Autor: {{ post.user.name }}</p>
       <button @click="deletePost(post.id)">Usuń post</button>
-      <router-link :to="`/post/${post.id}`">Zobacz więcej</router-link>
+      <button @click="viewPost(post)">Zobacz więcej</button>
     </div>
 
     <button @click="postStore.prevPage" :disabled="postStore.page === 1">
@@ -30,7 +30,11 @@ export default {
       postStore.posts = postStore.posts.filter((post) => post.id !== id);
     };
 
-    return { postStore, deletePost };
+    const viewPost = (post) => {
+      postStore.selectedPost = post;
+    };
+
+    return { postStore, deletePost, viewPost };
   },
   created() {
     this.postStore.loadPosts();

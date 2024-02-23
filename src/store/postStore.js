@@ -9,6 +9,7 @@ const usePostStore = defineStore({
     nextPagePosts: [],
     page: 1,
     hasMorePosts: true,
+    selectedPost: null,
   }),
   actions: {
     async getPosts(page) {
@@ -49,6 +50,9 @@ const usePostStore = defineStore({
         this.page -= 1;
         this.loadPosts();
       }
+    },
+    selectPost(post) {
+      this.selectedPost = post;
     },
   },
 });
