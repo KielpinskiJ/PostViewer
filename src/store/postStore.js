@@ -63,7 +63,7 @@ const usePostStore = defineStore({
       this.loadPosts(this.searchState.sort, this.searchState.filter, this.searchState.search);
     },
     setFilter(value) {
-      this.searchState.filter = value;
+      this.searchState.filter = Number(value);
       this.loadPosts(this.searchState.sort, this.searchState.filter, this.searchState.search);
     },
     setSearch(value) {
