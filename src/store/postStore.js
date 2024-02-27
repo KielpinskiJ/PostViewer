@@ -11,11 +11,18 @@ const usePostStore = defineStore({
     page: 1,
     selectedPost: null,
     searchState: { sort: '', filter: '', search: '' },
+    apiError: false,
   }),
   actions: {
     async loadAllPosts() {
       const response = await apiService.getAllPosts();
-      this.allPosts = response.data;
+      if (response.success) {
+        this.allPosts = response.data;
+        this.apiError = false;
+      } else {
+        this.apiError = true;
+        console.error(response.error);
+      }
     },
     filterAndSortPosts(sort, filter, search) {
       let posts = [...this.allPosts];

@@ -8,23 +8,32 @@ const apiClient = axios.create({
   },
 });
 
+async function handleRequest(request) {
+  try {
+    const response = await request;
+    return { success: true, data: response.data };
+  } catch (error) {
+    return { success: false, error: 'Problem with API call' };
+  }
+}
+
 export default {
   getAllPosts() {
-    return apiClient.get('/posts');
+    return handleRequest(apiClient.get('/posts'));
   },
   getPost(id) {
-    return apiClient.get(`/posts/${id}`);
+    return handleRequest(apiClient.get(`/posts/${id}`));
   },
   getCommentsByPostId(id) {
-    return apiClient.get(`/posts/${id}/comments`);
+    return handleRequest(apiClient.get(`/posts/${id}/comments`));
   },
   getAllUsers() {
-    return apiClient.get('/users');
+    return handleRequest(apiClient.get('/users'));
   },
   getUser(id) {
-    return apiClient.get(`/users/${id}`);
+    return handleRequest(apiClient.get(`/users/${id}`));
   },
   deletePost(id) {
-    return apiClient.delete(`/posts/${id}`);
+    return handleRequest(apiClient.delete(`/posts/${id}`));
   },
 };

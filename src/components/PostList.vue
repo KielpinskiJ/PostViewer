@@ -21,7 +21,10 @@
     </div>
 
     <div class="post-wrapper">
-      <div class="post" v-for="post in postStore.posts" :key="post.id">
+      <div v-if="postStore.apiError">
+        <h2>Wystąpił błąd podczas pobierania postów. Spróbuj ponownie później.</h2>
+      </div>
+      <div class="post" v-for="post in postStore.posts" :key="post.id" v-else>
         <h2 class="post-title">{{ post.title }}</h2>
         <p>{{ post.body.substring(0, 100) }}...</p>
         <p class="author">Autor: {{ userStore.getUser(post.userId).name }}</p>
