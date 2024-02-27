@@ -1,0 +1,42 @@
+@import '../styles/mixins.scss';
+
+.button {
+  border-radius: 999px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  width: fit-content;
+  border: 0;
+
+  &-view {
+    @include button-hover-effect($button-view, $button-view-hover);
+  }
+
+  &-delete {
+    @include button-hover-effect($button-delete, $button-delete-hover);
+  }
+
+  &-back {
+    @include button-hover-effect($button-back, $button-back-hover);
+  }
+
+  &-prev, &-next {
+    @include button-hover-effect($button-prev-next, $button-prev-next-hover);
+    color: $text-color-secondary;
+    border-radius: 10px;
+  }
+
+  &-prev:disabled, &-next:disabled {
+    cursor: not-allowed;
+    background-color: $button-prev-next-disabled;
+    box-shadow: none;
+  }
+}

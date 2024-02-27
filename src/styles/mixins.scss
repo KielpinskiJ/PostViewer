@@ -1,0 +1,9 @@
+@mixin button-hover-effect($start-color, $end-color) {
+  background: $start-color;
+  box-shadow: $start-color 0 10px 20px -10px;
+  transition: background-color 0.5s ease;
+
+  &:hover {
+    background: $end-color;
+  }
+}

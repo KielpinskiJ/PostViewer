@@ -47,12 +47,14 @@ const usePostStore = defineStore({
       if (this.page * 10 < this.filteredPosts.length) {
         this.page += 1;
         this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     },
     prevPage() {
       if (this.page > 1) {
         this.page -= 1;
         this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     },
     selectPost(post) {
