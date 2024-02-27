@@ -32,6 +32,14 @@
     @include button-hover-effect($button-prev-next, $button-prev-next-hover);
     color: $text-color-secondary;
     border-radius: 10px;
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+
+  @media (min-width: 600px) {
+    &-prev, &-next {
+      padding: 8px 18px;
+    }
   }
 
   &-prev:disabled, &-next:disabled {
