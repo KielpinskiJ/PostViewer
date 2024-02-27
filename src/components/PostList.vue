@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="posts-filters">
-      <select @change="postStore.setSort($event.target.value)">
+      <select aria-label="Sortuj według" @change="postStore.setSort($event.target.value)">
         <option value="">Sortuj według...</option>
         <option value="alphabetical">Alfabetycznie</option>
         <option value="reverseAlphabetical">Od końca alfabetu</option>
@@ -9,7 +9,8 @@
         <option value="shortest">Najkrótszy post</option>
       </select>
 
-      <select @change="postStore.setFilter($event.target.value)">
+      <select aria-label="Filtruj według użytkownika"
+        @change="postStore.setFilter($event.target.value)">
         <option value="">Filtruj według użytkownika...</option>
         <option v-for="user in userStore.users" :key="user.id" :value="user.id">
           {{ user.name }}
