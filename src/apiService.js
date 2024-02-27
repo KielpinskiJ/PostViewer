@@ -8,6 +8,11 @@ const apiClient = axios.create({
   },
 });
 
+const API_PATHS = {
+  POSTS: '/posts',
+  USERS: '/users',
+};
+
 async function handleRequest(request) {
   try {
     const response = await request;
@@ -19,21 +24,21 @@ async function handleRequest(request) {
 
 export default {
   getAllPosts() {
-    return handleRequest(apiClient.get('/posts'));
+    return handleRequest(apiClient.get(API_PATHS.POSTS));
   },
   getPost(id) {
-    return handleRequest(apiClient.get(`/posts/${id}`));
+    return handleRequest(apiClient.get(`${API_PATHS.POSTS}/${id}`));
   },
   getCommentsByPostId(id) {
-    return handleRequest(apiClient.get(`/posts/${id}/comments`));
+    return handleRequest(apiClient.get(`${API_PATHS.POSTS}/${id}/comments`));
   },
   getAllUsers() {
-    return handleRequest(apiClient.get('/users'));
+    return handleRequest(apiClient.get(API_PATHS.USERS));
   },
   getUser(id) {
-    return handleRequest(apiClient.get(`/users/${id}`));
+    return handleRequest(apiClient.get(`${API_PATHS.USERS}/${id}`));
   },
   deletePost(id) {
-    return handleRequest(apiClient.delete(`/posts/${id}`));
+    return handleRequest(apiClient.delete(`${API_PATHS.POSTS}/${id}`));
   },
 };

@@ -1,14 +1,21 @@
+export const SORT_OPTIONS = {
+  ALPHABETICAL: 'alphabetical',
+  REVERSE_ALPHABETICAL: 'reverseAlphabetical',
+  LONGEST: 'longest',
+  SHORTEST: 'shortest',
+};
+
 export function sortPosts(posts, sort) {
-  if (sort === 'alphabetical') {
+  if (sort === SORT_OPTIONS.ALPHABETICAL) {
     return posts.sort((a, b) => a.title.localeCompare(b.title));
   }
-  if (sort === 'reverseAlphabetical') {
+  if (sort === SORT_OPTIONS.REVERSE_ALPHABETICAL) {
     return posts.sort((a, b) => b.title.localeCompare(a.title));
   }
-  if (sort === 'longest') {
+  if (sort === SORT_OPTIONS.LONGEST) {
     return posts.sort((a, b) => b.body.length - a.body.length);
   }
-  if (sort === 'shortest') {
+  if (sort === SORT_OPTIONS.SHORTEST) {
     return posts.sort((a, b) => a.body.length - b.body.length);
   }
   return posts;
