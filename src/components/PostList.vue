@@ -45,7 +45,7 @@
       <span class="page-info">Strona: {{ postStore.page }} / {{ postStore.lastPage }}</span>
       <button class="button button-next"
         @click="postStore.nextPage()"
-        :disabled="postStore.page * 10 >= postStore.filteredPosts.length"
+        :disabled="postStore.page >= postStore.lastPage.value"
       >
         Następna strona
       </button>

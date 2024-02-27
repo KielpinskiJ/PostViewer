@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import apiService from '../apiService';
 import { sortPosts, filterPosts, searchPosts } from '../utils/postUtils';
+import POSTS_PER_PAGE from '../config';
 
 const usePostStore = defineStore({
   id: 'post',
@@ -16,7 +17,10 @@ const usePostStore = defineStore({
   }),
   getters: {
     lastPage() {
-      return computed(() => Math.ceil(this.filteredPosts.length / 10));
+      return computed(() => {
+        const result = Math.ceil(this.filteredPosts.length / POSTS_PER_PAGE);
+        return result === 0 ? 1 : result;
+      });
     },
   },
   actions: {
@@ -45,11 +49,17 @@ const usePostStore = defineStore({
 
       this.filteredPosts = posts;
     },
+    updatePosts() {
+      this.posts = this.filteredPosts.slice(
+        (this.page - 1) * POSTS_PER_PAGE,
+        this.page * POSTS_PER_PAGE,
+      );
+    },
     loadPosts(sort, filter, search) {
       this.page = 1;
       this.searchState = { sort, filter, search };
       this.filterAndSortPosts(sort, filter, search);
-      this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
+      this.updatePosts();
     },
     deletePost(id) {
       this.allPosts = this.allPosts.filter((post) => post.id !== id);
@@ -57,23 +67,23 @@ const usePostStore = defineStore({
       this.loadPosts(this.searchState.sort, this.searchState.filter, this.searchState.search);
     },
     nextPage() {
-      if (this.page * 10 < this.filteredPosts.length) {
+      if (this.page * POSTS_PER_PAGE < this.filteredPosts.length) {
         this.page += 1;
-        this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
+        this.updatePosts();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     },
     prevPage() {
       if (this.page > 1) {
         this.page -= 1;
-        this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
+        this.updatePosts();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     },
     goToPage(page) {
       if (page >= 1 && page <= this.lastPage) {
         this.page = page;
-        this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
+        this.updatePosts();
       }
     },
     selectPost(post) {
