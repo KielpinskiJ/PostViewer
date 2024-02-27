@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { computed } from 'vue';
 import apiService from '../apiService';
 import { sortPosts, filterPosts, searchPosts } from '../utils/postUtils';
 
@@ -13,6 +14,11 @@ const usePostStore = defineStore({
     searchState: { sort: '', filter: '', search: '' },
     apiError: false,
   }),
+  getters: {
+    lastPage() {
+      return computed(() => Math.ceil(this.filteredPosts.length / 10));
+    },
+  },
   actions: {
     async loadAllPosts() {
       const response = await apiService.getAllPosts();
@@ -62,6 +68,12 @@ const usePostStore = defineStore({
         this.page -= 1;
         this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+    goToPage(page) {
+      if (page >= 1 && page <= this.lastPage) {
+        this.page = page;
+        this.posts = this.filteredPosts.slice((this.page - 1) * 10, this.page * 10);
       }
     },
     selectPost(post) {

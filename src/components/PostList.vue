@@ -42,6 +42,7 @@
       >
         Poprzednia strona
       </button>
+      <span class="page-info">Strona: {{ postStore.page }} / {{ postStore.lastPage }}</span>
       <button class="button button-next"
         @click="postStore.nextPage()"
         :disabled="postStore.page * 10 >= postStore.filteredPosts.length"
@@ -162,5 +163,9 @@ export default {
   margin: 0 auto;
   max-width: 800px;
   padding: 0 20px 20px 20px;
+}
+
+.page-info {
+  align-self: center;
 }
 </style>
